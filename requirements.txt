@@ -1,0 +1,7 @@
+streamlit
+firebase-admin
+pandas
+Pillow
+fpdf
+plotly
+python-dateutil
