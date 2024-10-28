@@ -24,8 +24,21 @@ import json
 def init_firebase_admin():
     if not firebase_admin._apps:
         try:
-            # Load Firebase credentials from Streamlit secrets
-            firebase_creds = json.loads(st.secrets["firebase_credentials"])
+            # Create the credentials dictionary from the TOML format
+            firebase_creds = {
+                "type": st.secrets["firebase_credentials"]["type"],
+                "project_id": st.secrets["firebase_credentials"]["project_id"],
+                "private_key_id": st.secrets["firebase_credentials"]["private_key_id"],
+                "private_key": st.secrets["firebase_credentials"]["private_key"],
+                "client_email": st.secrets["firebase_credentials"]["client_email"],
+                "client_id": st.secrets["firebase_credentials"]["client_id"],
+                "auth_uri": st.secrets["firebase_credentials"]["auth_uri"],
+                "token_uri": st.secrets["firebase_credentials"]["token_uri"],
+                "auth_provider_x509_cert_url": st.secrets["firebase_credentials"]["auth_provider_x509_cert_url"],
+                "client_x509_cert_url": st.secrets["firebase_credentials"]["client_x509_cert_url"],
+                "universe_domain": st.secrets["firebase_credentials"]["universe_domain"]
+            }
+            
             cred = credentials.Certificate(firebase_creds)
             firebase_admin.initialize_app(cred, {
                 'storageBucket': f"{st.secrets['firebase_config']['project_id']}.appspot.com"
