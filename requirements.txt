@@ -1,7 +1,12 @@
 streamlit
 firebase-admin
-pandas
+PyPDF2
+python-docx
 Pillow
+pytesseract
+langchain
+langchain-google-genai
+transformers
+torch
 fpdf
-plotly
-python-dateutil
+google-cloud-storage
