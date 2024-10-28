@@ -259,8 +259,23 @@ def main():
     # Sidebar
     with st.sidebar:
         st.title("User Dashboard")
-        st.write(f"Organization: {user_data.get('organization', 'Not Set')}")
-        st.write(f"Email: {user_data.get('email')}")
+        if user_data is None:
+            st.warning("User profile not found. Please logout and sign up again.")
+            # Create a default profile for the user
+            user_data = {
+                'email': st.session_state.user['email'],
+                'organization': 'Not Set',
+                'created_at': firestore.SERVER_TIMESTAMP
+            }
+            # Save the default profile
+            try:
+                user_ref.set(user_data)
+                st.rerun()
+            except Exception as e:
+                st.error(f"Error creating user profile: {str(e)}")
+        else:
+            st.write(f"Organization: {user_data.get('organization', 'Not Set')}")
+            st.write(f"Email: {user_data.get('email')}")
         
         if st.button("Logout"):
             del st.session_state['user']
