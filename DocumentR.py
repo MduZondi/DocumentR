@@ -20,6 +20,7 @@ from transformers import pipeline
 import json
 
 # Initialize Firebase Admin
+# Initialize Firebase Admin
 @st.cache_resource
 def init_firebase_admin():
     if not firebase_admin._apps:
